@@ -28,12 +28,12 @@ const SendMail = () => {
       message: formData.message,
       createdAt: serverTimestamp(),
     });
-    composeClose(),
       setFormData({
         to: "",
         subject: "",
         message: "",
       });
+      composeClose()
   };
   
   return (

@@ -13,14 +13,28 @@ import {
   MdOutlineReport,
   MdOutlineWatchLater,
 } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase"; 
 
 const Mail = () => {
   const navigate = useNavigate();
+  const selectedEmail  = useSelector((state)=> state.appSlice.selectedEmail)
 
   const toInbox = () => {
     navigate("/");
   };
-  const { id } = useParams();
+
+  const param = useParams();
+
+  const deleteMailById = async (id) => {
+      try {
+        await deleteDoc(doc(db,"emails", id));
+        navigate('/')
+      } catch (error) {
+        console.log(error)
+      }
+  }
 
   const myIcon = [
     {
@@ -35,6 +49,7 @@ const Mail = () => {
     },
     {
       icon: <MdDeleteOutline size={"20px"} />,
+      onClick: () => deleteMailById(param.id)
     },
     {
       icon: <MdOutlineMarkEmailUnread size={"20px"} />,
@@ -81,19 +96,19 @@ const Mail = () => {
       <div className="h-[90vh] overflow-y-auto p-4">
         <div className="flex items-center justify-between bg-white gap-1">
           <div className="flex items-center gap-2">
-            <h1>Subject</h1>
+            <h1>{selectedEmail?.subject}</h1>
             <span className="text-sm bg-gray-200 rounded-md px-2">inbox</span>
           </div>
           <div className="flex-none text-gray-400 my-5 text-sm">
-            <span>20-07-2025</span>
+            <span>{new Date(selectedEmail?.createdAt?.second*1000).toUTCString()}</span>
           </div>
         </div>
         <div className="text-gray-500 text-sm  ">
-          <h1>Nitesh123@gmail.com</h1>
+          <h1>{selectedEmail?.to}</h1>
           <span>to me</span>
         </div>
         <div className="my-10">
-          <p>message</p>
+          <p>{selectedEmail?.message}</p>
         </div>
       </div>
     </div>
