@@ -4,7 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { IoSettings } from "react-icons/io5";
 import { PiDotsNineBold } from "react-icons/pi";
-import Avatar from 'react-avatar';
+import Avatar from "react-avatar";
 
 const Navbar = () => {
   return (
@@ -44,7 +44,11 @@ const Navbar = () => {
             <PiDotsNineBold size={"25px"} />
           </div>
           <div className="cursor-pointer">
-<Avatar src="../../../public/images/Nitesh_22BCT10006.jpg" size="38" round={true}/>
+            <Avatar
+              src="../../../public/images/Nitesh_22BCT10006.jpg"
+              size="38"
+              round={true}
+            />
           </div>
         </div>
       </div>

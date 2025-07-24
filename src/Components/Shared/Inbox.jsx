@@ -1,24 +1,35 @@
 import React from "react";
-import { MdCropSquare, MdInbox, MdKeyboard, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import {
+  MdCropSquare,
+  MdInbox,
+  MdKeyboard,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+} from "react-icons/md";
 import { FaCaretDown, FaUserFriends } from "react-icons/fa";
 import { IoMdMore, IoMdRefresh } from "react-icons/io";
 import { GoTag } from "react-icons/go";
 import { useState } from "react";
 import Messages from "./Messages";
+import MessagePromotion from "../MessagePromotion";
+import SocialMessage from "../SocialMessage";
 const Inbox = () => {
   const [mailTypeunderline, setMailTypeUnderline] = useState(0);
   const mailType = [
     {
       text: "Primary",
       icon: <MdInbox size={"20px"} />,
+      section: <Messages />,
     },
     {
       text: "Promotions",
       icon: <GoTag size={"20px"} />,
+      section: <MessagePromotion />,
     },
     {
       text: "Social",
       icon: <FaUserFriends size={"20px"} />,
+      section: <SocialMessage />,
     },
   ];
   return (
@@ -40,10 +51,10 @@ const Inbox = () => {
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-500 ">1-50 of 1000</span>
             <button className="hover:rounded-full rounded-md bg-gray-100">
-              <MdKeyboardArrowLeft size={"24px"}/>
+              <MdKeyboardArrowLeft size={"24px"} />
             </button>
             <button className="hover:rounded-full rounded-md bg-gray-100">
-              <MdKeyboardArrowRight size={"24px"}/>
+              <MdKeyboardArrowRight size={"24px"} />
             </button>
           </div>
         </div>
@@ -64,7 +75,7 @@ const Inbox = () => {
               </button>
             ))}
           </div>
-          <Messages />
+          {mailType[mailTypeunderline].section}
         </div>
       </div>
     </>

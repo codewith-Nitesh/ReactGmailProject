@@ -26,7 +26,6 @@ const Messages = () => {
       emails && emails?.map((email) => <Message email={email}/>)
     }
    </>
-    
   )
 }
 
