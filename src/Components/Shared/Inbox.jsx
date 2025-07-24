@@ -11,8 +11,8 @@ import { IoMdMore, IoMdRefresh } from "react-icons/io";
 import { GoTag } from "react-icons/go";
 import { useState } from "react";
 import Messages from "./Messages";
-import MessagePromotion from "../MessagePromotion";
-import SocialMessage from "../SocialMessage";
+import MessagePromotion from "./MessagePromotion";
+import SocialMessage from "./SocialMessage";
 const Inbox = () => {
   const [mailTypeunderline, setMailTypeUnderline] = useState(0);
   const mailType = [

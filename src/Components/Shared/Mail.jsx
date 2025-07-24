@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowBack, IoMdMore } from "react-icons/io";
-
+import { motion } from "framer-motion";
 import { BiArchiveIn } from "react-icons/bi";
 import {
   MdDeleteOutline,
@@ -15,11 +15,11 @@ import {
 } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase"; 
+import { db } from "../../firebase";
 
 const Mail = () => {
   const navigate = useNavigate();
-  const selectedEmail  = useSelector((state)=> state.appSlice.selectedEmail)
+  const selectedEmail = useSelector((state) => state.appSlice.selectedEmail);
 
   const toInbox = () => {
     navigate("/");
@@ -28,13 +28,13 @@ const Mail = () => {
   const param = useParams();
 
   const deleteMailById = async (id) => {
-      try {
-        await deleteDoc(doc(db,"emails", id));
-        navigate('/')
-      } catch (error) {
-        console.log(error)
-      }
-  }
+    try {
+      await deleteDoc(doc(db, "emails", id));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const myIcon = [
     {
@@ -49,7 +49,7 @@ const Mail = () => {
     },
     {
       icon: <MdDeleteOutline size={"20px"} />,
-      onClick: () => deleteMailById(param.id)
+      onClick: () => deleteMailById(param.id),
     },
     {
       icon: <MdOutlineMarkEmailUnread size={"20px"} />,
@@ -69,7 +69,12 @@ const Mail = () => {
   ];
 
   return (
-    <div className="flex-1 bg-white rounded-xl mx-5">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 0.7, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex-1 bg-white rounded-xl mx-5"
+    >
       <div className="flex items-center justify-between px-4">
         <div className="flex item-center gap-2 text-gray-700 py-2">
           {myIcon.map((items, index) => {
@@ -100,7 +105,9 @@ const Mail = () => {
             <span className="text-sm bg-gray-200 rounded-md px-2">inbox</span>
           </div>
           <div className="flex-none text-gray-400 my-5 text-sm">
-            <span>{new Date(selectedEmail?.createdAt?.second*1000).toUTCString()}</span>
+            <span>
+              {new Date(selectedEmail?.createdAt?.second * 1000).toUTCString()}
+            </span>
           </div>
         </div>
         <div className="text-gray-500 text-sm  ">
@@ -111,7 +118,7 @@ const Mail = () => {
           <p>{selectedEmail?.message}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
